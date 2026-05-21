@@ -1,37 +1,43 @@
 # MSP430 `.z1` / `.sky` / `ARM M4F(CC1352R)` / `cooja-native` Platformları için Üretilmiş Firmware’ler Üzerinde Yapılabilecek Analiz Türleri Kontrol Listesi
 
 ---
-##### (* ARM Mimarisinde derlenmiş firmware analizi yapmak isteyen gruplar MSP430 Toolchain yanında ARM-Toolchain araçlarını da indirip, kullanmalıdırlar.)
-
-``` bash
-  $ wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2
-  $ tar -xjf gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2
-```
----
-##### ** Analiz etmeniz için farklı platformlarda oluşturulmuş örnek firmware arşivi bil.omu drive linki için [tıklayınız](https://drive.google.com/file/d/1oLrZWPmDyuznWe5qS7zOsfSyyyPcQbBG/view?usp=sharing) .
-
-
+İnceleme için Contiki-NG ortamında derlenmiş iki farklı platforma ait dosyalar (nullnet-unicast.z1 ve nullnet-unicast.sky) kullanılmıştır.
 ---
 
 # 1. Binary Kimlik Analizi
 
-* Hedef platform analizi (`.z1` / `.sky` / `ARM M4F(CC1352R)` / `cooja-native`)
-* MSP430 mimari tipi
-* ELF format bilgisi
-* Endianness nedir ve Endianness bilgisi
-* Entry point adresi
-* ABI nedir ve ABI bilgisi
-* Compiler izi
-* Toolchain versiyonu
-* Optimization level tahmini
-* Debug symbol var/yok analizi
+MSP430 Mimari Tipi
+- Her iki dosya için de msp430-readelf -h çıktısının Class satırından dosyanın ELF32 sınıfında olduğu ve msp430-objdump -f çıktısından elf32-msp430 dosya formatında olduğu görülmüştür. 
+- z1 platformu msp430:430X mimarisini kullanmaktayken sky platformu daha eski olan msp430:430 mimarisini kullanmaktadır.
 
-Araçlar:
+ELF Format Bilgisi
+- msp430-readelf -h çıktısındaki Type satırından dosyaların EXEC yani çalıştırılabilir kodlar olduğu görülmüştür.
 
-* `msp430-readelf`
-* `msp430-objdump`
-* `msp430-strings`
-* `Ve üstteki araçların ARM versiyonları...`
+Endianness Bilgisi
+- Çok byte’dan oluşan verilerin bellekte hangi sırayla saklanacağını belirler. Little Endian, LSB’den MSB’ye bir sıralama belirtirken; Big Endian, MSB’den LSB’ye bir sıra belirtir.
+- msp430-readelf -h çıktısının Data satırından her iki dosyanın da 2's complement ve little endian veri yapısını kullandığı gözlenmiştir. 
+- 2’s complement, pozitif sayılar standart binary formatta saklanırken negatif sayıların 2’nin tümleyeni şeklinde saklandığını belirtir.
+
+Entry Point Adresi
+- msp430-readelf -h çıktısındaki ‘Entry point address’ satırları incelendiğinde donanımların bellek haritaları farklı olduğundan sisteme enerji geldiğinde işlemcinin ilk okuyacağı adreslerin z1 için 0x3100, sky için 0x4000 olduğu görülmüştür
+
+ABI Bilgisi
+- Derlenmiş kod parçalarının birbiriyle nasıl iletişim kuracağını belirler. Interrupt çağırma düzeni, stack yapısı, register kullanımı, veri tiplerinin boyutları gibi kuralları tanımlar.
+- msp430-readelf -h çıktısının OS/ABI satırından dosyaların Standalone App olduğu gözlemlenir yani doğrudan donanım üzerinde çalışabilecek şekilde kurgulanmıştır. 
+- ABI Version değerlerinin 0 olması ise özel bir ABI sürümü belirtilmediğini gösterir.
+
+Compiler İzi
+- msp430-readelf -p .comment komutu ile ELF dosyasının metadata bölümü incelendiğinde, her iki imajda da açıkça GCC: (GNU) imzası bulunmuştur.
+
+Toolchain Versiyonu
+- msp430-readelf -p .comment komutunun çıktısından derleyicinin versiyonu 4.7.2 20120920 (mspgcc dev 20120911) olarak bulunur. Bu bilgi MSP430 mimarisi için özelleştirilmiş olan mspgcc araç zincirinin 4.7.2 numaralı sürümünün kullanıldığına işaret eder.
+
+Optimizasyon Level Tahmini 
+- msp430-readelf -S ile incelenen Section Headers tablosunda hata ayıklama verilerini tutan .debug_info, .debug_line, .debug_frame gibi bölümlerin imaj içerisinde çok büyük yer kapladığı görülmüştür. Bu durum derleme işlemi sırasında kod boyutunu küçültecek yüksek optimizasyonların kapalı olduğuna işaret eder.
+
+Debug Symbol Analizi
+- msp430-objdump -f çıktısındaki HAS_SYMS bayrağı ve msp430-readelf -S tablosundaki .symtab bölümünün varlığı derleyicinin fonksiyon ve değişken isimlerini silmediğini göstermektedir.
+
 ---
 
 # 2. Bellek Kullanım Analizi
