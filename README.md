@@ -107,17 +107,17 @@ Contiki Process Entryleri
 - Contiki-NG’de process'ler çalıştırılabilir bir kod değil, bir veri yapısıdır. Bu yüzden msp430-nm çıktısında isimleri _process ile biten ve .data bölgesinde tutulan sembollere bakarız.
 
 Radio Driver Fonksiyonları
-Her iki platformun da haberleşme için TI CC2420 çipini kullandığı sembol tablosundan okunabilmektedir. msp430-nm çıktısında cc2420_ ön eki ile başlayan ve fonksiyon olduklarını belirten, T ve t harfine sahip satırlar aranır.
+- Her iki platformun da haberleşme için TI CC2420 çipini kullandığı sembol tablosundan okunabilmektedir. msp430-nm çıktısında cc2420_ ön eki ile başlayan ve fonksiyon olduklarını belirten, T ve t harfine sahip satırlar aranır.
 
 Timer Callbackleri
-Sistemin zamanlayıcı mimarisini kullanan geri çağırma ve zaman aşımı fonksiyonları tespit edilmiştir.
+- Sistemin zamanlayıcı mimarisini kullanan geri çağırma ve zaman aşımı fonksiyonları tespit edilmiştir.
 msp430-nm çıktısında ismi timer_ ile biten veya _expired anahtar kelimesini barındıran fonksiyonlar (T ve t) incelenir.
 
 Networking Callbackleri
-msp430-nm listesinde _callback kelimesiyle biten fonksiyonlar aranır ve bunların ağ yığınına ait oldukları isimlerinden çözümlenir.
+- msp430-nm listesinde _callback kelimesiyle biten fonksiyonlar aranır ve bunların ağ yığınına ait oldukları isimlerinden çözümlenir.
 
 Sensor Handlerları
-msp430-nm çıktısında mp102, accm_ ve button gibi sensör isimleri aratılarak bulunur.
+- msp430-nm çıktısında mp102, accm_ ve button gibi sensör isimleri aratılarak bulunur.
 
 Kullanılan Kütüphaneler
 - Derlenmiş imaja düşük seviyeli C standart kütüphanelerinin bağlandığı tespit edilmiştir.
@@ -159,14 +159,14 @@ Sensor İsimleri
 Örneğin z1 imajında ADXL345 sensor, TMP102 sensor ve Button dizgileri yer alırken, bu donanımlara sahip olmayan sky platformunda bu dizgiler bulunmamaktadır.
 
 Process İsimleri
-Contiki-NG süreçlerinin başlangıcında ekrana bilgi vermek veya süreçleri isimlendirmek için yazılmış Accelerometer process, Ctimer process, Event timer ve Stack check stringleri gözlemlenmiştir.
+- Contiki-NG süreçlerinin başlangıcında ekrana bilgi vermek veya süreçleri isimlendirmek için yazılmış Accelerometer process, Ctimer process, Event timer ve Stack check stringleri gözlemlenmiştir.
 
 Routing Protokol İsimleri
 - Ağ katmanında karmaşık bir routing protokolü yerine, doğrudan nullrouting dizgisinin bulunduğu görülmüştür.
 - Bu durum düğümler arası yönlendirmenin yapılmadığını, doğrudan komşular arası basit bir haberleşme kurulduğunu gösterir.
 
 TSCH/6LoWPAN/RPL stringleri
-Uygulama nullnet tabanlı olduğu için RPL stringleri bulunmamaktadır.
+- Uygulama nullnet tabanlı olduğu için RPL stringleri bulunmamaktadır.
 
 Hidden Diagnostic Mesajlar
 - Normal çalışmada ekranda görünmeyen, ancak bazı durumlarda tetiklenen gizli teşhis mesajları tespit edilmiştir. Örnek olarak not for us : dizgisi verilebilir.
