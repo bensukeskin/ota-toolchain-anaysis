@@ -193,7 +193,7 @@ Register kullanımı
 - Fonksiyon içerisinde değiştirilmemesi gereken veriler ise yedeği alınan r10 ve r11 gibi yazmaçlarda tutulmaktadır.
 
 Stack Frame Yapısı
-Stack Frame, derleyici tarafından lokal değişken boyutlarına göre ayarlanmıştır. Derin fonksiyon çağrılarında, stack çok daha yoğun kullanılmaktadır. r1 yazmacının kullanıldığı kısımlarda verilen değerlere bakılarak bu sonuca ulaşılabilir.
+- Stack Frame, derleyici tarafından lokal değişken boyutlarına göre ayarlanmıştır. Derin fonksiyon çağrılarında, stack çok daha yoğun kullanılmaktadır. r1 yazmacının kullanıldığı kısımlarda verilen değerlere bakılarak bu sonuca ulaşılabilir.
 
 ISR Akışı
 - Kesme servis rutinlerinin (ISR) akışı standart fonksiyonlardan tamamen farklı donanımsal mekanizmalara sahiptir.
@@ -255,7 +255,7 @@ Araçlar:
 
 # 7. ELF Yapısı Analizi
 
-Bu bölümde msp430-radelf çıktıları üzerinden değerlendirmeler yapılmıştır.
+Bu bölümde msp430-readelf çıktıları üzerinden değerlendirmeler yapılmıştır.
 
 ELF Header
 - Class, Data, OS/ABI ve Type satırlarında yazan değerlere göre incelenen her iki imaj da 32-bitlik ELF32 sınıfında olup, verileri en düşük anlamlı bayt en düşük adrese gelecek şekilde (Little Endian) organize etmektedir. İşletim sistemi ABI alanı Standalone App olarak geçmektedir ve dosyalar yürütülebilir (EXEC) formattadır.
@@ -303,7 +303,7 @@ Initialization Routines
 
 # 8. Interrupt ve Donanım Analizi
 
-Bu bölümde msp430-radelf, msp430-nm ve msp430-objdump çıktıları üzerinden değerlendirmeler yapılmıştır.
+Bu bölümde msp430-readelf, msp430-nm ve msp430-objdump çıktıları üzerinden değerlendirmeler yapılmıştır.
 
 Interrupt Vector Table
 - msp430-readelf -S tablosu üzerinden yapılan bellek haritası analizinde, donanım kesmelerini ilgili ISR fonksiyonlarına yönlendiren donanımsal Kesme Vektör Tablosu (.vectors) tespit edilmiştir.
