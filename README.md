@@ -1,11 +1,13 @@
 # MSP430 `.z1` ve `.sky` Platformları için Üretilmiş Firmware’ler Üzerinde Yapılan Analizler
 
 ---
+
 İnceleme için Contiki-NG ortamında derlenmiş iki farklı platforma ait dosyalar (nullnet-unicast.z1 ve nullnet-unicast.sky) kullanılmıştır.
 Çıktıların olduğu dosyalar .txt formatında eklenmiştir.
+
 ---
 
-# Binary Kimlik Analizi
+## Binary Kimlik Analizi
 
 MSP430 Mimari Tipi
 - Her iki dosya için de msp430-readelf -h çıktısının Class satırından dosyanın ELF32 sınıfında olduğu ve msp430-objdump -f çıktısından elf32-msp430 dosya formatında olduğu görülmüştür. 
@@ -41,7 +43,7 @@ Debug Symbol Analizi
 
 ---
 
-# Bellek Kullanım Analizi
+## Bellek Kullanım Analizi
 
 Flash, RAM, Stack, Heap Anlamları
 - Flash: Kalıcı bellektir. Enerji kesildiğinde veriler silinmez. İşletim sistemi kodları, fonksiyonlar ve sabit veriler burada tutulur.
@@ -86,7 +88,7 @@ Büyük Veri Yapılarının Tespiti
 
 ---
 
-# Symbol / Function Analizi
+## Symbol / Function Analizi
 
 Fonksiyon İsimleri
 - Sisteme ait temel fonksiyonlar .text belleğine yerleşir.
@@ -135,7 +137,7 @@ Function Address Mapping
 
 ---
 
-# String ve Metadata Analizi
+## String ve Metadata Analizi
 
 Debug Mesajları
 - msp430-strings çıktısı incelendiğinde, işletim sisteminin çalışma zamanındaki hataları yakalamak için kullandığı Check in inconsistent state: %ld vs. %ld ve Check failed: %ld vs. %ld gibi stack kontrolü debug mesajları her iki imajda da bulunmuştur.
@@ -176,7 +178,7 @@ Hardcoded Config Değerleri
 
 ---
 
-# Assembly / Instruction Analizi
+## Assembly / Instruction Analizi
 
 Bu bölümde msp430-objdump -d çıktıları üzerinden değerlendirmeler yapılmıştır.
 
@@ -234,7 +236,7 @@ Scheduler Davranışı
 
 ---
 
-# ELF Yapısı Analizi
+## ELF Yapısı Analizi
 
 Bu bölümde msp430-readelf çıktıları üzerinden değerlendirmeler yapılmıştır.
 
@@ -282,7 +284,7 @@ Initialization Routines
 
 ---
 
-# Interrupt ve Donanım Analizi
+## Interrupt ve Donanım Analizi
 
 Bu bölümde msp430-readelf, msp430-nm ve msp430-objdump çıktıları üzerinden değerlendirmeler yapılmıştır.
 
@@ -325,7 +327,7 @@ MSP430 Register Erişimleri
 
 ---
 
-# Karşılaştırmalı Firmware Analizi
+## Karşılaştırmalı Firmware Analizi
 
 Bu bölümde nullnet-unicast.z1 ve nullnet-unicast.sky dosyaları karşılaştırılarak açıklamalar yapılmıştır.
 
